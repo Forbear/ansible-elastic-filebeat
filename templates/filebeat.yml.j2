@@ -188,10 +188,12 @@ output.elasticsearch:
 
 {% elif filebeat_output == 'logstash' %}
 #----------------------------- Logstash output --------------------------------
-#output.logstash:
+output.logstash:
   # The Logstash hosts
-  #hosts: ["localhost:5044"]
-
+  hosts: {{ logstash_hosts | to_yaml }}
+{% if filebeat_logstash_cert is defined %}
+  ssl.certificate_authorities: {{ filebeat_logstash_cert }}
+{% endif %}
   # Optional SSL. By default is off.
   # List of root certificates for HTTPS server verifications
   #ssl.certificate_authorities: ["/etc/pki/root/ca.pem"]
