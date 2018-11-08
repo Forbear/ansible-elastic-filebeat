@@ -158,7 +158,7 @@ filebeat.inputs:
 {% endfor %}
 {% endfor %}
 {% if filebeat_registry is defined %}
-registry_file: {% filebeat_registry %}
+registry_file: {{ filebeat_registry }}
 {% endif %}
 {% endif %}
 #================================ Outputs =====================================
