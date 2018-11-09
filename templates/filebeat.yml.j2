@@ -9,6 +9,7 @@
 
 # For more available modules and options, please see the filebeat.reference.yml sample
 # configuration file.
+
 {% if filebeat_service_agent == 'prospectors' %}
 #=========================== Filebeat prospectors =============================
 filebeat.prospectors:
@@ -61,6 +62,7 @@ filebeat.prospectors:
   # Note: After is the equivalent to previous and before is the equivalent to to next in Logstash
   #multiline.match: after
 {% endif %}
+
 {% if filebeat_service_agent == 'inputs' %}
 #================================ Filebeat inputs =====================================
 {% if filebeat_input_options is defined %}
@@ -95,8 +97,8 @@ filebeat.config.modules:
   # Period on which files under path should be checked for changes
   #reload.period: 10s
 
-#==================== Elasticsearch template setting ==========================
 {% if filebeat_output == 'elasticsearch' %}
+#==================== Elasticsearch template setting ==========================
 setup.template.settings:
   index.number_of_shards: 3
   index.codec: best_compression
@@ -121,7 +123,6 @@ tags: {{ filebeat_tags | to_yaml }}
 # output.
 #fields:
 #  env: staging
-
 
 #============================== Dashboards =====================================
 setup.dashboards.enabled: {{ filebeat_setup_dashboards }}
