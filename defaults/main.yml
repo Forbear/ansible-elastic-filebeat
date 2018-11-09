@@ -11,7 +11,7 @@ filebeat_output: elasticsearch
 # custom index name for filebeat
 # filebeat_index_name: filebeat
 
-# elasticsearch_protocol: http
+elasticsearch_protocol: http
 
 # authentication if needed
 # elasticsearch_username: elastic
