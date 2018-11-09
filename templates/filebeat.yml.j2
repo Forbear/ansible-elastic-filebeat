@@ -9,7 +9,7 @@
 
 # For more available modules and options, please see the filebeat.reference.yml sample
 # configuration file.
-{% in filebeat_service_agent == 'prospectors' %}
+{% if filebeat_service_agent == 'prospectors' %}
 #=========================== Filebeat prospectors =============================
 filebeat.prospectors:
 
@@ -61,7 +61,7 @@ filebeat.prospectors:
   # Note: After is the equivalent to previous and before is the equivalent to to next in Logstash
   #multiline.match: after
 {% endif %}
-{% in filebeat_service_agent == 'inputs' %}
+{% if filebeat_service_agent == 'inputs' %}
 #================================ Filebeat inputs =====================================
 {% if filebeat_input_options is defined %}
 filebeat.inputs:
