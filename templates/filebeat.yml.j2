@@ -63,7 +63,7 @@ filebeat.prospectors:
   #multiline.match: after
 
 {% endif %}
-{% if filebeat_service_agent == 'inputs' %}
+{% elif filebeat_service_agent == 'inputs' %}
 #================================ Filebeat inputs =====================================
 {% if filebeat_input_options is defined %}
 filebeat.inputs:
