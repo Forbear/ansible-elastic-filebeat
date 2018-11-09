@@ -1,9 +1,9 @@
 ---
 # defaults file for ansible-elastic-filebeat
-elastic_version: 6.x
+# elastic_version: 6.x
 # kibana_host: "http://localhost:5601"
-elasticsearch_hosts:
-  - localhost:9200
+# elasticsearch_hosts:
+#  - localhost:9200
 
 # valid values: elasticsearch, logstash
 filebeat_output: elasticsearch
@@ -11,7 +11,7 @@ filebeat_output: elasticsearch
 # custom index name for filebeat
 # filebeat_index_name: filebeat
 
-elasticsearch_protocol: http
+# elasticsearch_protocol: http
 
 # authentication if needed
 # elasticsearch_username: elastic
