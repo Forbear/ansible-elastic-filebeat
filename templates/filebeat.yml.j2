@@ -9,9 +9,8 @@
 
 # For more available modules and options, please see the filebeat.reference.yml sample
 # configuration file.
-
+{% in filebeat_service_agent == 'prospectors' %}
 #=========================== Filebeat prospectors =============================
-
 filebeat.prospectors:
 
 # Each - is a prospector. Most options can be set at the prospector level, so
@@ -61,8 +60,29 @@ filebeat.prospectors:
   # that was (not) matched before or after or as long as a pattern is not matched based on negate.
   # Note: After is the equivalent to previous and before is the equivalent to to next in Logstash
   #multiline.match: after
-
-
+{% endif %}
+{% in filebeat_service_agent == 'inputs' %}
+#================================ Filebeat inputs =====================================
+{% if filebeat_input_options is defined %}
+filebeat.inputs:
+{% for option in filebeat_input_options %}
+- type: {{ option.type }}
+  paths:
+{% for path in option.paths %}
+    - {{ path }}
+{% endfor %}
+  fields:
+{% for field, value in option.fields.iteritems() %}
+    {{ field }}: {{ value }}
+{% endfor %}
+{% for field, value in option.additional_options.iteritems() %}
+  {{ field }}: {{ value }}
+{% endfor %}
+{% endfor %}
+{% if filebeat_registry is defined %}
+registry_file: {{ filebeat_registry }}
+{% endif %}
+{% endif %}
 #============================= Filebeat modules ===============================
 
 filebeat.config.modules:
@@ -140,27 +160,7 @@ setup.kibana:
 # The cloud.auth setting overwrites the `output.elasticsearch.username` and
 # `output.elasticsearch.password` settings. The format is `<user>:<pass>`.
 #cloud.auth:
-#================================ Filebeat =====================================
-{% if filebeat_input_options is defined %}
-filebeat.inputs:
-{% for option in filebeat_input_options %}
-- type: {{ option.type }}
-  paths:
-{% for path in option.paths %}
-    - {{ path }}
-{% endfor %}
-  fields:
-{% for field, value in option.fields.iteritems() %}
-    {{ field }}: {{ value }}
-{% endfor %}
-{% for field, value in option.additional_options.iteritems() %}
-  {{ field }}: {{ value }}
-{% endfor %}
-{% endfor %}
-{% if filebeat_registry is defined %}
-registry_file: {{ filebeat_registry }}
-{% endif %}
-{% endif %}
+
 #================================ Outputs =====================================
 
 # Configure what output to use when sending the data collected by the beat.
